@@ -3,11 +3,12 @@ require 'timeout'
 require_relative '../lib/top_like_application'
 require 'smooth_terminal_print'
 
-at_exit { SmoothTerminalPrint.stop; STDIN.echo = true}
-command_line_output = CommandLineOutput.new
+at_exit { STDIN.echo = true; SmoothTerminalPrint.new.stop_smooth_printing_mode }
+command_line_output   = CommandLineOutput.new
+smooth_terminal_print = SmoothTerminalPrint.new
 
 loop do
-	SmoothTerminalPrint.start do
+	smooth_terminal_print.print_smoothly do
 		command_line_output.print_data(AppData.instance.get_data)
 	end
 

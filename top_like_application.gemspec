@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
 	s.license     = 'MIT'
 
 	s.add_runtime_dependency 'flexible_table', '~> 0.0'
-	s.add_runtime_dependency 'smooth_terminal_print', '~> 1.0'
+	s.add_runtime_dependency 'smooth_terminal_print', '~> 2.1'
 	s.add_runtime_dependency 'async_data_provider', '~> 0.0'
 	s.add_runtime_dependency 'simple_process_runner', '~> 0.0'
 end
