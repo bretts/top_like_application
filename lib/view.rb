@@ -1,6 +1,20 @@
+require 'singleton'
 require 'flexible_table'
 
-class CommandLineOutput
+class View
+	include Singleton
+
+	def initialize
+		@stp = SmoothTerminalPrint.new
+	end
+
+	def print_frame(data)
+		@stp.print_smoothly do
+			print_data(data)
+		end
+	end
+
+	private
 	def print_data(app_data)
 		table = FlexibleTable.new
 		table.add_column("CPU", 10)

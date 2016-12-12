@@ -1,23 +1,6 @@
 #!/usr/bin/env ruby
-require 'timeout'
 require_relative '../lib/top_like_application'
 require 'smooth_terminal_print'
+require 'io/console'
 
-at_exit { STDIN.echo = true; SmoothTerminalPrint.new.stop_smooth_printing_mode }
-command_line_output   = CommandLineOutput.new
-smooth_terminal_print = SmoothTerminalPrint.new
-
-loop do
-	smooth_terminal_print.print_smoothly do
-		command_line_output.print_data(AppData.instance.get_data)
-	end
-
-	begin
-		Timeout::timeout(1) do
-			STDIN.echo = false
-			char = STDIN.getch.downcase
-			exit if (char == 'q' || char == "\e" || char == "\u0003")
-		end
-	rescue Timeout::Error
-	end
-end
+Controller.instance.init_controller

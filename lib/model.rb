@@ -1,7 +1,7 @@
 require 'ostruct'
 require 'async_data_provider'
 
-class AppData < AsyncDataProvider
+class Model < AsyncDataProvider
 	def initialize
 		super()
 		@time_retrieve_interval = 1
