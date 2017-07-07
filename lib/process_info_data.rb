@@ -1,22 +1,34 @@
-require 'async_data_provider'
+require 'singleton'
 require 'simple_process_runner'
 
-class ProcessInfoData < AsyncDataProvider
+class ProcessInfoData < DataProvider
+	include Singleton
 
 	def initialize
 		super()
-		@time_retrieve_interval = 1
 	end
 
-	private
-	def update_data(**args)
-		begin
+	def update_data
+		lamb = lambda do
 			process = SimpleProcessRunner.run_process(['ps', 'ax', '-o', '%cpu,%mem,command'])
 			exit_code, stdout, stderr = process.wait
 
-			return (((stdout.split("\n")[1..-1]).map { |x| x.strip!; x.split(" ") }).sort! { |a, b| a[0] <=> b[0] }).reverse!
-		rescue
-			return @data
+			result = []
+			stdout.split("\n").each_with_index do |line, index|
+				next if index == 0
+
+				array   = line.strip!.split(" ")
+				current = []
+				current << array.shift.to_f.round(2)
+				current << array.shift.to_f.round(2)
+				current << array.join(" ")
+
+				result << current
+			end
+
+			return result
 		end
+
+		__do_update_data__(lamb)
 	end
 end

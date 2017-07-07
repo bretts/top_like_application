@@ -1,6 +1,2 @@
 #!/usr/bin/env ruby
 require_relative '../lib/top_like_application'
-require 'smooth_terminal_print'
-require 'io/console'
-
-Controller.instance.init_controller
