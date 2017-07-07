@@ -6,7 +6,11 @@ This project shows how you might create an interactive command line application 
 ### Example Usage
 
 ```
-ruby ./bin/top_like_application
+$ git clone https://github.com/bretts/top_like_application.git
+$ cd ./top_like_application
+$ gem install bundler
+$ bundle install
+$ ./bin/top_like_application
 ```
 
 ### Controls
