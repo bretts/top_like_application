@@ -31,9 +31,13 @@ class DataProvider
 
 	private
 	def __do_update_data__(lambda)
-		result = lambda.call
-		@mutex.synchronize do
-			@data = result
+		begin
+			result = lambda.call
+			@mutex.synchronize do
+				@data = result
+			end
+		rescue
+			return @data
 		end
 	end
 end
